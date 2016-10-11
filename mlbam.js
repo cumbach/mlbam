@@ -1,42 +1,29 @@
 (function(){
   'use strict';
 
-  // $(window).on('resize', onResize);
-  //
-  // function onResize(){
-  //     var w = $("body").innerWidth();
-  //     var fontSize = w / 60.625; // 970/60.625 = 16
-  //     $("body").css('font-size', fontSize + 'px');
-  // }
-
-  $(document).ready(function() {
-    // onResize();
-  });
-
   var Gallery = function Gallery(element) {
       this.element = element;
       this.games = [];
       this.currentIndex = 0;
-      // this.textFill = [];
-      // this.textDelay = 2;
   };
   window['Gallery'] = Gallery;
 
   Gallery.prototype.init = function(opts) {
+    this.addTitle();
     this.gatherData();
     $(window).on("keydown", this.handleKeyEvent.bind(this));
-    // this.animate();
+  };
 
-    // this.createCards();
-
-    // console.log('hi');
-    // this.textDelay = (opts.textDelay ? opts.textDelay : this.textDelay);
+  Gallery.prototype.addTitle = function () {
+    var date = new Date();
+    $('body').append('<h2>MLB Game Information for<br/>' + (date.getMonth()+1) + '/' + date.getDay() + '/' + (date.getYear()+1900) + '</h2>');
   };
 
   Gallery.prototype.gatherData = function () {
     var that = this;
     var date = new Date();
 
+    // SHOULD BE USING getDate() HERE, BUT THE THUMBNAILS WERE LOADING WITH 404 ERROR AND NOT MANY GAMES
     var day = date.getDay();
     if (day < 10) {
       day = '0' + day.toString();
@@ -58,7 +45,6 @@
       url: 'http://gdx.mlb.com/components/game/mlb/year_' + year + '/month_' + month + '/day_' + day + '/master_scoreboard.json',
       success: function (mlb) {
         that.games = mlb.data.games.game;
-        console.log(that.games);
         that.createCards();
       }
     });
@@ -120,5 +106,6 @@
     var currentCard = $('#gallery .card:eq(' + this.currentIndex + ')');
     currentCard.addClass('active');
   };
+
 
 })();

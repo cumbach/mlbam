@@ -11,6 +11,12 @@ body {
   height: 100%;
 }
 
+h2 {
+  margin-left: 42%;
+  position: fixed;
+  text-align: center;
+}
+
 #gallery {
   height: 200px;
   display: flex;
