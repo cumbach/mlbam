@@ -80,8 +80,12 @@
 
       var metadata = $('<div>');
       metadata.addClass('metadata');
-      var time = $('<h6>' + game.home_time + ' ' + game.home_time_zone + '</h6>');
+      var time = $('<h4 class=time>' + game.home_time + ' ' + game.home_time_zone + '</h4>');
+      var homeRecord = $('<h5 class=home-record>' + game.home_team_name + ': ' + game.home_win + '-' + game.home_loss + '</h5>');
+      var awayRecord = $('<h5 class=away-record>' + game.away_team_name + ': ' + game.away_win + '-' + game.away_loss + '</h5>');
       metadata.append(time);
+      metadata.append(homeRecord);
+      metadata.append(awayRecord);
       card.append(metadata);
 
       this.element.append(card);
@@ -98,7 +102,7 @@
         event.preventDefault()
         currentCard.removeClass('active');
         this.currentIndex -= 1;
-        window.scrollBy(-100,0);
+        window.scrollBy(-200,0);
         this.animate();
       }
     } else if (event.keyCode === 39) {
@@ -106,7 +110,7 @@
         event.preventDefault()
         currentCard.removeClass('active');
         this.currentIndex += 1;
-        window.scrollBy(100,0);
+        window.scrollBy(200,0);
         this.animate();
       }
     }
